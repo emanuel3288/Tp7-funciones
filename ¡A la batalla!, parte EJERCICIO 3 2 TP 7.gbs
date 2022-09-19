@@ -1,0 +1,150 @@
+/*
+Escribir las siguientes funciones para el juego ¡A la batalla! de la práctica anterior, donde en las celdas
+del tablero se representan soldados (los aliados con una bolita de color Negro y los enemigos con una
+bolita de color Rojo por cada soldado).
+a. cantidadDeSoldadosDe_(colorDelEjército), que describe la cantidad de soldados de
+la celda actual del ejército dado.
+b. Vuelva a escribir EnviarAliadosParaDuplicarEnemigos(), y PelearLaBatalla(), que
+realizó en la práctica anterior, ahora haciendo uso de la función hecha en el punto a, y luego
+conteste: ¿Realizó procedimientos auxiliares para resolver el problema? ¿Cuál de los códigos
+(entre este y el de la práctica anterior) comunica mejor la solución al problema? ¿Por qué?
+c. esCeldaIndefensa() que indica si no hay soldados aliados en la celda actual.
+d. estadoDeEmergencia() que indica si existen más de 100 soldados enemigos, y además la
+celda está indefensa.
+e. hayAlMenos_AliadosPorCada_Atacantes(cantidadDefensa, cantidadAtaque)
+que indica si hay por lo menos cantidadDefensa soldados aliados por cada
+cantidadAtaque soldados enemigos en la celda actual. Por ejemplos si en la celda actual
+hubiera 10 soldados aliados y 5 enemigos, la función invocada como
+hayAlMenos_AliadosPorCada_Atacantes(2, 1), describiría Verdadero, pues hay al
+menos dos aliados por cada atacante. Si se invocara con esos mismos argumentos en una
+celda donde hay 7 aliados y 5 enemigos, describiría Falso.
+f. aliadosNecesariosParaDefensaEficazContra_(
+cantidadDeSoldadosEnemigosAdicionales) que describe el número de soldados
+aliados que faltan para defender la celda actual si a ella se suman la cantidad de soldados
+enemigos dada. Tener en cuenta que en la celda actual puede ser que haya soldados, pero que
+es precondición de esta función que no hay suficientes aliados. Recordemos que 2 soldados
+enemigos pelean contra 3 soldados aliados y todos mueren.
+*/
+program {
+    return(hayAlMenos_AliadosPorCada_Atacantes(2, 1)
+}
+
+//ejercicio parte 2
+
+//f-
+function aliadosNecesariosParaDefensaEficazContra_(cantidadDeSoldadosEnemigosAdicionales) {
+    /*
+    Propósito:
+    Precondición:
+    Parámetros:
+    Tipo:
+    */
+} 
+
+//e-----------------------------------------------------------------DUDA
+function hayAlMenos_AliadosPorCada_Atacantes(cantidadDefensa, cantidadAtaque) {
+    /*
+    Propósito:      -Indíca si hay por lo menos **cantidadDeDefensa** de solados aliados por cada **cantidadAtaque** de soldados enemigos en la celda actual.
+    Precondición:   -Ninguna.
+    Parámetros:
+            **cantidadDefensa**: Número. Indíca la cantidad de soldados aliados en la celda actual.
+            **cantidadAtaque**:  Número. Indíca la cantidad de solados enemigos en la celda actual.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya por lo menos **cantidadDeDefensa** de solados aliados por cada **cantidadDeAtaque** de solados enemigos en la celda actual,
+                     en caso contrario retorna falso.
+    */
+    return(cantidadDeSoldadosDe_(Rojo)*2 - cantidadDeSoldadosDe_(Negro))
+}
+
+//d-
+function estadoDeEmergencia() {
+    /*
+    Propósito:      -Indíca si hay más de 100 solados enemigos y si la celda se encuentra indefensa.
+    Precondición:   -Ninguna.
+    Tipo:           -Booleano. Retorna verdadero si hay más de 100 soldados y la celda se encuentra indefensa, en caso contrario retorna falso.
+    */
+    return(hayMásDe100SoldadosEnemigos() && esCeldaIndefensa())
+}
+
+function hayMásDe100SoldadosEnemigos() {
+    /*
+    Propósito:      -Indíca si hay más de 100 soldados enemigos en la celda actual.
+    Precondición:   -Ningúna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya más de 100 soldados enemigos en la celda actual, en caso contrario retorna falso.
+    */
+    return(nroBolitas(Rojo)>100)
+}
+
+//c-
+function esCeldaIndefensa() {
+    /*
+    Propósito:      -Indíca si no hay soldados aliados en la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que no haya soldados aliados en la celda actual, en caso contrario retorna falso.
+    */
+    return(not hayBolitas(Negro))
+}
+
+//b-
+//Puse el nroBolitas dentro de una función.
+procedure  PelearLaBatalla() {
+    /*
+    PROPÓSITO:      -Genera una batalla de solados aliados con los enemigos para ganar la batalla.
+    PRECONDICIÓN:   -Deben existir suficientes soldados aliados para pelear la batalla.
+    OBSERVACIÓN:    -Los solados aliados se representan con bolitas de color negro.
+                    -Los soldados enemigos se representan con bolitas de color rojo.
+    */
+    Sacar_DeColor_(3*cantidadDeSoldadosDe_(Rojo) div 2, Negro)
+    Sacar_DeColor_(cantidadDeSoldadosDe_(Rojo),         Rojo)
+}
+
+
+procedure  EnviarAliadosParaDuplicarEnemigos() {
+    /*
+    PROPÓSITO:      -Agrega el doble de soldados que de enemigos en la celda actual.
+    PRECONDICIÓN:   -Debe existir al menos un enemigo en la celda actual.
+    */
+    Poner_DeColor_(cantidadDeSoldadosDe_(Rojo)*2 - cantidadDeSoldadosDe_(Negro), Negro)
+}
+
+
+//a-
+function cantidadDeSoldadosDe_(colorDelEjército) {
+    /*
+    Propósito:      -Describe la cantidad de solados del **colorDelEjército** de la celda actual.
+    Precondición:   -Ninguna.
+    Parámetros:
+        **colorDelEjército**: Color. Indíca el color del ejército disponible.
+    Tipo: Número. Retorna la cantidad de solados del **colorDelEjército** de la celda actual.
+    */
+    return(nroBolitas(colorDelEjército))
+}
+
+
+// DE LA BIBLIOTECA---------------------------------------------------------------------------------------------------------------
+procedure Poner_DeColor_(cantidadAPoner, colorAPoner) {
+  /*
+  PROPOSITO:    -Poner **cantidadAPoner** de color **colorAPoner** en la celda actual.
+  PRECONDICION: -Ninguna.
+  PARAMETROS:   -**cantidadAPoner**: Numero.Indíca la cantidad de bolitas a poner.
+                -**colorAPoner**:    Color. Indíca el color de la/s bolita/s a poner.
+  */
+  repeat(cantidadAPoner) {
+    Poner(colorAPoner)
+  }
+}
+
+//
+procedure Sacar_DeColor_(cantidadASacar, colorASacar) {
+  /*
+  PROPOSITO:     -Saca **cantidadASacar** bolitas de color **colorASacar** de la celda actual.
+  PRECONDICION:  -Debe existir al menos **cantidadASacar** bolita/s de color **colorASacar**.
+  PARAMETROS:    -**cantidadASacar**: -Numero.Indíca el cantidad de bolitas a sacar de la celda actual.
+                 -**colorASacar**:    -Color. Indíca el color de la bolita a sacar de la celda actual.
+  OBSERVACIONES: La cantidad a sacar debe ser mayor a 0.
+  */
+  repeat(cantidadASacar) {
+    Sacar(colorASacar)
+  }
+}
+
+

@@ -1,0 +1,198 @@
+program {
+
+  //Poner_DeColor_(10, Azul)
+    
+}
+
+procedure PonerUnaDeCada() {
+    /*
+    PROPOSITO:    -Poner una bolita de cada color en la celda actual. 
+    PRECONDICION: -No hay.
+    */
+    Poner(Rojo)
+    Poner(Negro)
+    Poner(Azul)
+    Poner(Verde)
+
+}
+
+/*Tp4 -9
+ Poner de a muchas
+  BIBLIOTECA Escribir un procedimiento Poner_DeColor_(cantidadAPoner, colorAPoner) que
+  dado un número cantidadAPoner y un color colorAPoner, ponga tantas bolitas como se indica del
+  color dado de la celda actual.
+  */
+procedure Poner_DeColor_(cantidadAPoner, colorAPoner) {
+  /*
+  PROPOSITO:    -Poner **cantidadAPoner** de color **colorAPoner** en la celda actual.
+  PRECONDICION: -Ninguna.
+  PARAMETROS:   -**cantidadAPoner**: Numero.Indíca la cantidad de bolitas a poner.
+                -**colorAPoner**:    Color. Indíca el color de la/s bolita/s a poner.
+  */
+  repeat(cantidadAPoner) {
+    Poner(colorAPoner)
+  }
+}
+
+//Tp4 -10
+procedure Mover_VecesAl_(cantidadAMover, direcciónAMover) {
+  /*
+  PROPOSITO:    -Posiciona el cabezal **cantidadAMover** celdas en la dirección **direcciónAMover**.
+  PRECONDICION: -Deben existir al menos **cantidadAMover** celdas al **direcciónAMover** de la celda actual.
+  PARAMETROS:   -**cantidadAMover**:   -Numero.   Indíca la cantidad de veces que se va a mover el cabezal.
+                -**direcciónAMover**:  -Dirección.Indíca la dirección en la que el cabezal se deberá mover.
+  */
+  repeat(cantidadAMover) {
+    Mover(direcciónAMover)
+  }
+}
+
+//Tp4 -11
+
+procedure Sacar_DeColor_(cantidadASacar, colorASacar) {
+  /*
+  PROPOSITO:     -Saca **cantidadASacar** bolitas de color **colorASacar** de la celda actual.
+  PRECONDICION:  -Debe existir al menos **cantidadASacar** bolita/s de color **colorASacar**.
+  PARAMETROS:    -**cantidadASacar**: -Numero.Indíca el cantidad de bolitas a sacar de la celda actual.
+                 -**colorASacar**:    -Color. Indíca el color de la bolita a sacar de la celda actual.
+  OBSERVACIONES: La cantidad a sacar debe ser mayor a 0.
+  */
+  repeat(cantidadASacar) {
+    Sacar(colorASacar)
+  }
+}
+
+
+
+//TP5 -6. Sacando todas las de un color
+/*que quite de la celda actual todas las bolitas del color indicado por el parámetro.*/
+procedure SacarTodasLasDeColor_(colorASacar) {
+  /*
+  PROPÓSITO:    -Saca todas las bolitas de **colorASacar** de la celda actual.
+  PRECONDICIÓN: -Deben existir al menos una bolita del **colorASacar** en la celda actual.
+  PARÁMETROS:
+    **colorASacar**: Color. Indíca el color de la bolitas a sacar.
+  */
+  Sacar_DeColor_(nroBolitas(colorASacar), colorASacar)
+}
+
+// TP 5 -7. ¿Y si vaciamos la celda?
+procedure VaciarCelda() {
+  /*
+  PROPOSITO:    -Saca todas las bolitas de todos los colores de la celda actual.
+  PRECONDICION: -Debe existir al menos un bolita de color en la celda actual.
+  */
+    SacarTodasLasDeColor_(Rojo)
+    SacarTodasLasDeColor_(Verde)
+    SacarTodasLasDeColor_(Azul)
+    SacarTodasLasDeColor_(Negro)
+}
+
+// Entrega del presente
+procedure Sacar__Veces(colorASacar, cantidadBolitasASacar) {
+  /*
+  PROPÓSITO:    -Saca **cantidadBolitasASacar** de **colorASacar** de la celda actual.
+  PRECONDICIÓN: -Debe/n existir al menos **cantidadBolitasASacar** de **colorASacar** en la celda actual.
+  PARÁMETROS:
+    **colorASacar**:    -Color. Indíca el color de la bolita a sacar.
+    **cantidadASacar**: -Número.Indíca la cantidad de bolitas a sacar.
+  */
+  repeat(cantidadBolitasASacar) {
+    Sacar(colorASacar)
+  }
+}
+
+procedure MoverEnDiagonalAl_Y_(primeraDireccionAMover,segundaDireccionAMover) {
+    /*
+    PROPÓSITO:      -Posiciona el cabezal en diagonal hacia **primeraDireccionAMover** y **segundaDireccionAMover**. 
+    PRECONDICIÓN:   -Deben existir al menos algunas celdas hacia la **primeraDireccionAMover** y hacia la **segundaDireccionAMover**. 
+    PARAMETROS:
+        **primeraDireccionAMover**: Dirección. Indíca la primera dirección de la diagonal.
+        **segundaDireccionAMover**: Dirección. Indíca la segunda dirección de la diagonal.
+    */
+    Mover(primeraDireccionAMover)
+    Mover(segundaDireccionAMover)
+}
+
+// Ejercicio 4 TP6
+//A
+procedure Poner_Si_(color, condición){
+  /*
+    PROPÓSITO:      -Pone una bolita de **color** en la celda actual si se cumple la condición.
+    PARÁMETROS:
+      * color:      -Color. Indíca el color a poner en la celda actual.
+      * condición:  -Booleano. Indíca la condición necesaria que se debe cumplir para poner una bolita en la celda actual.
+    PRECONDICIONES: -Ninguna.
+      * 
+  */
+  if (condición) {
+    Poner(color)
+  } 
+}
+
+procedure Sacar_Si_(color, condición) {
+  /*
+    PROPÓSITO:      -Saca una bolita de **color** de la celda actual si se cumple la **condición**.
+    PARÁMETROS:     
+      * color:      -Color.   Indíca el color de la bolita a sacar de la celda actual.
+      * condición:  -Booleano.Indíca la condición necesaria que se debe cumplir para sacar una bolita de la celda actual.
+    PRECONDICIONES: -Debe/n existir al menos una bolita a sacar de **color** si se cumple la **condición**.
+      * 
+  */
+  if(condición) {
+    Sacar(color)
+  }
+}
+
+procedure Mover_Si_(dirección, condición) {
+  /*
+    PROPÓSITO:      -Posiciona el cabezal en la celda lindante en la **dirección** si se cumple la **condición**. 
+    PARÁMETROS:
+      * dirección:  -Dirección. -Indíca la dirección en la que mueve el cabezal.
+      * condición:  -Booleano.  -Indíca la condición necesaria que se debe cumplir para que el cabezal se mueva.
+    PRECONDICIONES: -Debe existir al menos una celda lindante en esa **dirección** si se cumple la **condición**.
+      * 
+  */
+  if (condition) {
+    Mover(dirección)
+  }  
+}
+
+// TP7 ---------
+/*2. Algunas funciones útiles
+BIBLIOTECA Escribir las siguientes funciones, para agregarlas a la biblioteca.
+a. esCeldaVacía(), que indica si la celda actual se encuentra vacía.
+b. hayAlMenosUnaDeCada(), que indica si en la celda actual hay al menos una bolita de cada
+color.
+c. esCeldaConBolitas(), que indica si la celda actual tiene al menos una bolita, de cualquier
+color.*/
+
+function esCeldaVacía() {
+  /*
+    PROPÓSITO:      -Indíca si la celda actual está vacía.  
+    PRECONDICIONES: -Ninguna.
+    TIPO:           -Booleano. Retorna verdadero si la celda actual está vacía, en caso contrario retorna falso.
+      * 
+  */
+  return (not hayBolitas(Rojo) && not hayBolitas(Negro) && not hayBolitas(Azul) && not hayBolitas(Verde))
+}
+
+function hayAlMenosUnaDeCada() {
+  /*
+    PROPÓSITO:      -Indíca si hay al menos una bolita de cada color en la celda actual.
+    PRECONDICIONES: -Ningúna.
+    TIPO:           -Booleano. Retorna verdadero en el caso de que haya al menos una bolita de cada color en la celda actual, en caso contrario retorna falso.
+      * 
+  */ 
+  return (hayBolitas(Rojo) && hayBolitas(Verde) && hayBolitas(Azul) && hayBolitas(Negro))
+}
+
+function esCeldaConBolitas() {
+  /*
+    PROPÓSITO:      -Indíca si hay al menos una bolita de cualquier color en la celda actual.
+    PRECONDICIONES: -Ninguna.
+    TIPO:           -Booleano. Retorna verdadero en el caso de que haya al menos una bolita de cualquier color en la celda actual, en caso contrario retorna falso.
+      * 
+  */
+  return (hayBolitas(Rojo)|| hayBolitas(Verde)|| hayBolitas(Azul)|| hayBolitas(Negro))
+}

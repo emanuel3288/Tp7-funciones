@@ -1,0 +1,88 @@
+
+/*
+a. La cantidad total de bolitas de la celda actual.
+b. Si hay más de 5 bolitas en total en la celda actual.
+c. Si hay exactamente 5 bolitas en la celda actual.
+d. Si hay al menos 5 bolitas en la celda actual.
+e. Si hay bolitas de todos los colores en la celda actual.
+f. Si la celda actual está vacía.
+g. Si a la celda actual le faltan bolitas de alguno de los colores y no está vacía.
+*/
+program {
+    return(noEstáVacíaYfaltaAlMenosUnaDeColor())
+}
+
+
+//FUNCIONES TOTALES----> SU PRECONDICIÓN ES NINGUNA.
+//h
+function noEstáVacíaYfaltaAlMenosUnaDeColor() {
+    /*  
+    Propósito:      -Indíca si la celda actual no está vacía y si falta alguna bolita de color en la celda actual.     
+    Precondición:   -Ninguna.
+    Tipo:           -Booleano. -Retorna verdadero en el caso de que la celda actual no está vacía y si falta alguna bolita de color en la celda actual, en caso contrario retorna falso.
+    */
+    return(not estáVacía() && not hayAlMenosUnaDeCadaColor())
+}
+
+//f
+function estáVacía() {
+    /*
+    Propósito:      -Indíca si la celda actual se encuentra vacía.
+    Precondición:   -Ningúna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que la celda actual se encuentre vacía, en caso contrario retorna falso.
+    */
+    return(not hayBolitas(Rojo) && not hayBolitas(Azul) && not hayBolitas(Negro) && not hayBolitas(Azul))
+}
+
+//e
+function hayAlMenosUnaDeCadaColor() {
+    /*
+    Propósito:      -Indíca si hay bolitas de todos los colores en la celda actual.
+    Precondición:   -Ningúna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya bolitas de todos los colores en la celda actual, en caso contrario retorna falso.
+    */
+    return(hayBolitas(Rojo) && hayBolitas(Azul) && hayBolitas(Negro) && hayBolitas(Azul))
+}
+
+
+//d 
+function hayAlMenos5EnTotal() {
+    /*
+    Propósito:      -Indíca si hay al menos 5 bolitas en total en la celda actual.
+    Precondición:   -Ningúna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya al menos 5 bolitas en total en la celda actual, en caso contrario retorna falso.
+    */
+    return(cantidadTotalMulticolor() >= 5)
+}
+
+
+//c
+function hayExactamente5EnTotal() {
+    /*
+    Propósito:      -Indíca si hay exactamente 5 bolitas en total en la celda actual.
+    Precondición:   -Ningúna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya exactamente 5 bolitas en total en la celda actual, en caso contrario retorna falso.
+    */
+    return(cantidadTotalMulticolor() == 5)
+}
+
+
+//B
+function hayMásDe5EnTotal() {
+    /*
+    Propósito:      -Indíca si hay más de 5 bolitas en total en la celda actual.
+    Precondición:   -Ningúna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya más de 5 bolitas en total en la celda actual, en caso contrario retorna falso.
+    */
+    return(cantidadTotalMulticolor()>5)
+}
+
+//A
+function cantidadTotalMulticolor() {
+    /*
+    Propósito:      -Describe la cantidad total de bolitas de todos los colores en la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Número. Retorna la cantidad total de bolitas de todos los colores de la celda actual.
+    */
+    return(nroBolitas(Rojo)+nroBolitas(Verde)+nroBolitas(Azul)+nroBolitas(Negro))
+}
