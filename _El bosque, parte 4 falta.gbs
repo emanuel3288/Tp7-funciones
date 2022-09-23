@@ -1,0 +1,396 @@
+program {
+    ExplotarBomba()
+}
+
+//parte d
+/*
+d. ExplotarBomba(), que explota una bomba en la celda actual, eliminando árboles. Al explotar,
+una bomba derriba 5 árboles en la celda actual y 3 en la celda lindante al Norte. Si la celda
+actual está en el borde Norte, entonces solo se eliminan los árboles de la celda actual. Atención:
+cuando haya menos árboles de los que la bomba puede eliminar, entonces elimina los que haya. La
+bomba se consume en el proceso, o sea, hay que eliminarla.
+*/
+procedure ExplotarBomba() {
+    /*
+    Propósito:      -Explota la bomba en la celda actual.
+    Precondición:   -
+    */
+    ExplotarArbolesDeLaCeldaActual()
+    if(puedeMover(Norte)) {
+        ExplotarDeLaCeldaLindanteAlNorte()
+    }
+}
+
+procedure ExplotarDeLaCeldaLindanteAlNorte(){
+    
+    if(hayCeldaLindanteAlNorte() && hay_Árboles(3)){
+        Sacar_ÁrbolesAl_(3, Norte)
+    }        
+    
+}
+
+procedure ExplotarArbolesDeLaCeldaActual() {
+    if(hay_Árboles(5)){
+        SacarUnaBomba()
+        Sacar_Árboles(5)
+    }
+}
+
+
+function hayCeldaLindanteAlNorte() {
+    /*
+    Propósito:      -Indíca si hay una celda lindate al norte.
+    Precondición:   -Ninguna.
+    */
+    return(puedeMover(Norte))
+}
+
+function hay_Árboles(cantidad) {
+    /*
+    Propósito:      -Indíca si hay 3 árboles en la celda actual.
+    Precondición:   -Ninguna
+    Parámetros:
+        **cantidad**: -Número. 
+    */
+    return(cantidadDeArboles() == cantidad)
+}
+
+// Parte c
+/*c. AlimentarÁrboles(), que hace que los árboles de la celda actual se alimenten,
+consumiendo un nutriente cada uno. El único cambio que hay que hacer es la eliminación de
+los nutrientes. Si hay menos nutrientes de lo que se necesita, se consumen todos los que hay.*/
+procedure AlimentarÁrboles() {
+    /*
+    Propósito:      -Alimenta el árbol en la celda actual.
+    Precondición:   -
+    */
+    AlimentarÁrbolesSiHayNutrientes()
+}
+
+procedure AlimentarÁrbolesSiHayNutrientes(){
+    /*
+    Propósito:      -Alimenta a los árboles si hay suficientes nutrientes en la celda actual.
+    Precondición:   -Ninguna.
+    */
+    if(cantidadDeNutrientes()>=cantidadDeArboles()) {
+        Sacar_Nutrientes(cantidadDeArboles())
+        
+    }elseif(cantidadDeNutrientes()<cantidadDeArboles()) {
+        Sacar_Nutrientes(cantidadDeNutrientes())
+    }
+}
+
+//Parte B
+/*b. GerminarSemilla(), que transforma una semilla en un árbol en la celda actual. La
+germinación consume tres unidades de nutrientes. Si en la celda no hay semilla, o no hay
+suficientes nutrientes, no se hace nada.*/
+
+procedure GerminarSemilla() {
+    /*
+    Propósito:      -Transforma una semilla en un árbol en la celda actual.     
+    Precondición:   -Ninguna.
+    */    
+    GerminarSiHaySemillasSuficientes()
+}
+
+procedure GerminarSiHaySemillasSuficientes() {
+    /*
+    Propósito:      -Germina si hay semillas suficientes en la celda actual.
+    Precondición:   -Ninguna.
+    */
+    if( haySemillas() && hayNutrientesSuficientesParaGerminar()) {
+        SacarUnaSemilla()
+        Sacar_Nutrientes(3)
+        PonerUnÁrbol()
+    }
+} 
+
+function hayNutrientesSuficientesParaGerminar() {
+    /*
+    Propósito:      -Indíca si hay nutrientes suficientes para germinar. 
+    Precondición:   -Ninguna.
+    Tipo:           -Boolean. Retorna verdadero en el caso de que haya  nutrientes suficientes para 
+                     germinar, en caso contrario retorna falso.
+    */
+    return(cantidadDeNutrientes()>= 3)    
+}
+
+function haySemillas() {
+    /*
+    Propósito:      -Indíca si hay 3 semillas en la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Booleano. Retorna verdadero en el caso de que haya 3 semillas en la celda actual,
+                     en caso contrario retorna falso.
+    */
+    return(hayBolitas(Rojo))
+}
+
+function cantidadDeNutrientes() {
+    /*
+    Propósito:      -Describe la cantidad de nutrientes de la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Número. Retorna la cantidad de nutrientes de la celda actual.
+    */
+    return(nroBolitas(Azul))
+}
+
+function cantidadDeArboles() {
+    /*
+    Propósito:      -Describe la cantidad de arboles de la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Número. Retorna la cantidad de arboles de la celda actual.
+    */
+    return(nroBolitas(Verde))
+}
+
+
+
+
+
+//Parte A
+function árbol(){
+    /*
+    Propósito:      -Describe si hay un árbol en la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Color. Retorna el color que representa a un árbol.
+    */
+    return(Verde)
+}
+
+function semilla(){
+    /*
+    Propósito:      -Describe si hay un árbol en la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Color.Retorna el color que represanta a una semilla.
+    */
+    return(Rojo)
+}
+
+function bomba(){
+    /*
+    Propósito:      -Describe si hay un árbol en la celda actual.
+    Precondición:   -Ninguna. Retorna el color que representa a una bomba.
+    Tipo:           -Color.
+    */
+    return(Negro)
+}
+
+function  nutriente(){
+    /*
+    Propósito:      -Describe si hay un árbol en la celda actual.
+    Precondición:   -Ninguna.
+    Tipo:           -Color. Retorna el color que representa a un nutriente.
+    */
+    return(Azul)
+}
+
+
+
+//Ejercicio de la practica anterior
+procedure Sacar_ÁrbolesEnDiagonalHorariaAl_(cantidadDeÁrboles, direcciónDiagonal) {
+// la diagonal horaria de una dirección es aquella dada por la dirección y su dirección siguiente.
+// Ej. la diagonal horaria de Norte es Norte-Este, la de Sur es Sur-Oeste.
+// deja el cabezal en la celda inicial
+
+    /*
+    PROPOSITO:      -Saca **cantidadDeÁrboles** arboles de la diagonal horaria.
+    PRECONDICION:   -Deben existir al menos una celda en la diagonal horaria de la celda actual.  
+                    -Debe existir al menos un arbol en la diagonal horaria.
+    PARAMETROS:
+        **cantidadDeÁrboles**: Numero.      -Indíca la cantidad de arboles a sacar.
+        **direcciónDiagonal**: Direccion.   -Indíca la direccion de los arboles a sacar.
+    */
+    MoverEnDiagonalAl_Y_(direcciónDiagonal,siguiente(direcciónDiagonal))
+    Sacar_Árboles(cantidadDeÁrboles)
+    MoverEnDiagonalAl_Y_(opuesto(direcciónDiagonal),opuesto(siguiente(direcciónDiagonal)))
+}
+
+procedure Sacar_SemillasEnDiagonalAl_Y_(cantidadDeSemillas, primeraDirDiagonal, segundaDirDiagonal) {
+    /*
+    PROPOSITO:      -Saca **cantidadDeSemillas** semillas al **primeraDirDiagonal** **segundaDirDiagonal** de la parcela actual. 
+    PRECONDICION:   -Deben existir al menos una celda en dirección **primeraDirDiagonal** y otra **segundaDirDiagonal**.
+                    -La direccion **primeraDirDiagonal** debe ser distinta de la dirección **segundaDirDiagonal**.
+                    -La direccion **primeraDirDiagonal** no puede ser opuesta a la direccion **segundaDirDiagonal**.
+                    -Debe existir al menos una semilla en la direccion **primeraDirDiagonal** **segundaDirDiagonal**.
+    PARAMETROS:
+        **cantidadDeSemillas**: Numero.    -Indíca la catidad de semillas a sacar.
+        **primeraDirDiagonal**: Dirección. -Indíca la primera dirección en la que se mueve el cabezal.
+        **segundaDirDiagonal**: Dirección. -Indíca la segunda dirección en la que se mueve el cabezal.
+    */
+    MoverEnDiagonalAl_Y_(primeraDirDiagonal,segundaDirDiagonal)
+    Sacar_Semillas(cantidadDeSemillas)
+    MoverEnDiagonalAl_Y_(opuesto(primeraDirDiagonal),opuesto(segundaDirDiagonal))
+}
+
+procedure Sacar_ÁrbolesAl_(cantidadDeÁrboles, direcciónASacar) {
+        /*
+    PROPOSITO:      -Saca **cantidadDeÁrboles** en parcela lindante al **direcciónASacar**.
+    PRECONDICION:   -Debe existir al menos una parcela lindante en la dirección **direcciónASacar**.
+                    -Debe exisitr al menos un arbol en la dirección **direcciónASacar**.
+    PARAMETROS:
+        **cantidadDeÁrboles**: -Número.    -Indíca la cantidad de semillas a poner en la parcela lindante.
+        *direcciónASacar***:    -Dirección. -Indíca la dirección de las semillas a poner.
+    */  
+    Mover(direcciónASacar)
+    Sacar_Árboles(cantidadDeÁrboles)
+    Mover(opuesto(direcciónASacar))
+}
+
+procedure Poner_SemillasAl_(cantidadDeSemillas, direcciónAPoner){
+    /*
+    PROPOSITO:      -Pone **cantidadDeSemillas** en parcela lindante al **direcciónAPoner**.
+    PRECONDICION:   -Debe existir al menos una parcela lindante en la dirección **direcciónAPoner**.
+                    -Debe poner al menos una semilla en la dirección **direcciónAPoner**.
+    PARAMETROS:
+        **cantidadDeSemillas**: -Número.    -Indíca la cantidad de semillas a poner en la parcela lindante.
+        *direcciónAPoner***:    -Dirección. -Indíca la dirección de las semillas a poner.
+    */  
+    Mover(direcciónAPoner)
+    Poner_Semillas(cantidadDeSemillas)
+    Mover(opuesto(direcciónAPoner))
+}
+
+procedure Poner_Semillas(cantidadDeSemillasAPoner) {
+    /*
+    Proposito:     - Pone **cantidadDeSemillasAPoner** semillas en la parcela actual.  
+    Precondicion:  - Ninguna.
+    Parametros:    -**cantidadDeSemillasAPoner**: Numero. Indíca la cantidad de semillas a poner en la parcela actual.
+    */
+    Poner_DeColor_(cantidadDeSemillasAPoner, Rojo)
+    
+}
+procedure Sacar_Semillas(cantidadDeSemillasASacar) {
+    /*
+    Proposito:    - Saca **cantidadDeSemillasASacar** semillas de la parcela actual.
+    Precondicion: - Debe/n existir al menos **cantidadDeSemillasASacar** en la parcela actual.
+    Parametros:   -**cantidadDeSemillasASacar**: Numero. Indíca la cantidad de semillas a sacar de la celda actual.
+    */
+    Sacar_DeColor_(cantidadDeSemillasASacar, Rojo)
+    
+}
+procedure Poner_Árboles(cantidadDeÁrbolesAPoner) {
+    /*
+    Proposito:   - Pone **cantidadDeÁrbolesAPoner** arbol/es en la parcela actual.
+    Precondicion:- Ninguna.
+    Parametros:  -**cantidadDeÁrbolesAPoner**: Numero. Indíca la cantidad de arboles a poner en la parcela actual.
+    */
+    Poner_DeColor_(cantidadDeÁrbolesAPoner, Verde)
+}
+procedure Sacar_Árboles(cantidadDeÁrbolesASacar) {
+    /*
+    Proposito:   - Saca **cantidadDeÁrbolesASacar** arbol/es de la parcela actual.
+    Precondicion:- Debe/n existir al menos **cantidadDeÁrbolesASacar** en la parcela actual.
+    Parametros:  -**cantidadDeÁrbolesASacar**: Numero. Indíca la cantidad de arboles a sacar de la parcela actual.
+    */
+    Sacar_DeColor_(cantidadDeÁrbolesASacar, Verde)
+}
+procedure Poner_Nutrientes(cantidadDeNutrientesAPoner) {
+    /*
+    Proposito:   - Pone **cantidadDeNutrientesAPoner** nutriente/s en la celda actual.
+    Precondicion:- Ninguna.
+    Parametros:  - **cantidadDeNutrientesAPoner**: Numero. Indíca la cantidad de nutriente/s a poner en la celda actual.
+    */
+    Poner_DeColor_(cantidadDeSemillasAPoner, Azul)
+    
+}
+procedure Sacar_Nutrientes(cantidadDeNutrientesASacar) {
+    /*
+    Proposito:   -Saca **cantidadDeNutrientesASacar** nutriente/s de la celda actual.
+    Precondicion:-Debe/n existir al menos **cantidadDeNutrientesASacar** nutrientes en la celda actual.
+    Parametros:  -**cantidadDeNutrientesASacar**: Numero. Indíca la cantidad de nutrientes a sacar de la parcela actual.
+    */
+    Sacar_DeColor_(cantidadDeNutrientesASacar, Azul)
+}
+
+procedure PonerUnaSemilla(){
+    /*
+    PROPOSITO:    -Poner una semilla en la parcela actual.
+    PRECONDICION: -La parcela debe estar vacia.
+    */
+    Poner(Rojo)
+}
+
+procedure PonerUnÁrbol() {
+    /*
+    PROPOSITO:    -Poner un arbol en la parcela actual.
+    PRECONDICION: -La parcela debe estar vacia.
+    */
+    Poner(Verde)
+}
+procedure PonerUnaBomba() {
+    /*
+    PROPOSITO:    -Poner una bomba en la parcela actual.
+    PRECONDICION: -La parcela debe estar vacia.
+    */
+    Poner(Negro)
+}
+procedure PonerUnNutriente() {
+    /*
+    PROPOSITO:    -Poner una nutriente en la parcela actual.
+    PRECONDICION: -La parcela debe estar vacia.
+    */
+    Poner(Azul)
+}
+procedure SacarUnaSemilla() {
+    /*
+    PROPOSITO:    -Sacar un nutriente de la parcela actual.
+    PRECONDICION: -Debe existir al menos una semilla en la parcela actual.
+    */
+    Sacar(Rojo)
+}
+procedure SacarUnÁrbol() {
+    /*
+    PROPOSITO:    -Sacar un arbol de la parcela actual.
+    PRECONDICION: -Debe existir al menos un arbol en la parcela actual.
+    */
+    Sacar(Verde)
+}
+procedure SacarUnaBomba() {
+    /*
+    PROPOSITO:    -Sacar una bomba de la parcela actual.
+    PRECONDICION: -Debe existir al menos una bomba en la parcela actual.
+    */
+    Sacar(Negro)
+}
+procedure SacarUnNutriente() {
+    /*
+    PROPOSITO:    -Sacar un nutriente de la parcela actual.
+    PRECONDICION: -Debe existir al menos un nutriente en la parcela actual.
+    */
+    Sacar(Azul)
+}
+
+
+// de la biblioteca
+procedure Poner_DeColor_(cantidadAPoner, colorAPoner) {
+  /*
+  PROPOSITO:    -Poner **cantidadAPoner** de color **colorAPoner** en la celda actual.
+  PRECONDICION: -Ninguna.
+  PARAMETROS:   -**cantidadAPoner**: Numero.Indíca la cantidad de bolitas a poner.
+                -**colorAPoner**:    Color. Indíca el color de la/s bolita/s a poner.
+  */
+  repeat(cantidadAPoner) {
+    Poner(colorAPoner)
+  }
+}
+
+procedure Sacar_DeColor_(cantidadASacar, colorASacar) {
+  /*
+  PROPOSITO:     -Saca **cantidadASacar** bolitas de color **colorASacar** de la celda actual.
+  PRECONDICION:  -Debe existir al menos **cantidadASacar** bolita/s de color **colorASacar**.
+  PARAMETROS:    -**cantidadASacar**: -Numero.Indíca el cantidad de bolitas a sacar de la celda actual.
+                 -**colorASacar**:    -Color. Indíca el color de la bolita a sacar de la celda actual.
+  OBSERVACIONES: La cantidad a sacar debe ser mayor a 0.
+  */
+  repeat(cantidadASacar) {
+    Sacar(colorASacar)
+  }
+}
+
+procedure MoverEnDiagonalAl_Y_(primeraDireccionAMover,segundaDireccionAMover) {
+    Mover(primeraDireccionAMover)
+    Mover(segundaDireccionAMover)
+}
+
+
+
